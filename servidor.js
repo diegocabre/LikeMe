@@ -1,5 +1,10 @@
 const express = require("express");
-const { crearPost, obtenerPosts, sumarLike } = require("./consultas");
+const {
+  crearPost,
+  obtenerPosts,
+  sumarLike,
+  borrarPost,
+} = require("./consultas");
 const app = express();
 const PORT = 3000;
 
@@ -9,6 +14,14 @@ app.use(express.static("public"));
 app.post("/post", async (req, res) => {
   try {
     const { usuario, URL, descripcion } = req.body;
+
+    // Validación de campos
+    if (!usuario || !URL || !descripcion) {
+      return res
+        .status(400)
+        .json({ error: "Todos los campos son obligatorios" });
+    }
+
     const nuevoPost = await crearPost(usuario, URL, descripcion);
     res.status(201).json(nuevoPost);
   } catch (error) {

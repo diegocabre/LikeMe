@@ -29,3 +29,4 @@ const borrarPost = async (id) => {
 };
 
 module.exports = { crearPost, obtenerPosts, sumarLike, borrarPost };
+

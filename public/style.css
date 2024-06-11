@@ -1,53 +1,123 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --gap: 0.5rem;
+
+  --like-button: 0 100% 65%;
+
+  --text: 0 0% 8%;
+  --background: 0 0% 91%;
+
+  --card-body: 200 100% 70%;
+  --card-body-contrast: 200 100% 20%;
+}
+
+html,
 body {
-  background-color: #f8f9fa;
+  height: 100%;
 }
 
-h2 {
-  color: #343a40;
+body {
+  display: grid;
+  place-items: center;
+  color: hsl(var(--text));
+  background-color: hsl(var(--background));
+  margin: 0;
+  font-family: sans-serif;
 }
 
-form {
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#creado {
-  background-color: #28a745;
-}
-
-.posts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+picture,
+img {
+  display: block;
+  width: 100%;
 }
 
 .card {
-  flex: 1 1 calc(33.333% - 20px);
-  background-color: #ffffff;
-  border: none;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --svg-size: 24px;
+  max-width: 15rem;
+  padding: 0.5rem;
+  color: hsl(var(--card-body-contrast));
+  background-color: hsl(var(--card-body) / 0.1);
+  border: 1px solid hsl(var(--text) / 0.2);
+  border-radius: var(--gap);
+  box-shadow: 0 0 5px 1px hsl(var(--text) / 0.1),
+    5px 5px 15px 0 hsl(var(--text) / 0.3);
+}
+
+.card:is(:hover) {
+  opacity: 0.95;
 }
 
 .card img {
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  object-fit: cover;
+  position: top;
+  border-radius: var(--gap);
 }
 
-.card .card-body {
-  padding: 15px;
+.card-body {
+  display: flex;
+  padding: var(--gap);
 }
 
 .card-title {
-  color: #343a40;
+  display: grid;
+  gap: var(--gap);
 }
 
-.card-text {
-  color: #6c757d;
+.card-body .card-title > :first-child {
+  margin: 0;
+  margin-block-start: calc(var(--gap) / 2);
 }
 
-svg {
+.card-title .card-description {
+  margin: 0;
+  color: hsl(var(--text) / 0.7);
+}
+
+.card-body .card-like-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: hsl(var(--card-body-contrast) / 0.7);
+  background-color: inherit;
+  border: none;
+  padding: 0;
   cursor: pointer;
+}
+
+.card-body .card-like-button:is(:hover, :focus-visible) {
+  color: hsl(var(--like-button));
+}
+
+.card-body .card-like-button svg {
+  width: var(--svg-size);
+  height: var(--svg-size);
+}
+
+.card-body .card-like-button svg:is(.not-liked) {
+  visibility: hidden;
+  position: absolute;
+}
+
+.card-body .card-like-button:is(:active) svg {
+  scale: 0.9;
+}
+
+.card-body .card-like-button:is(:active) svg:nth-of-type(1) {
+  visibility: hidden;
+  position: absolute;
+}
+
+.card-body .card-like-button:is(:active) svg:nth-of-type(2) {
+  visibility: visible;
+  position: static;
+}
+
+.card-body .card-like-button .likes {
+  font-family: monospace;
+  font-weight: 900;
 }
